@@ -7,9 +7,9 @@
 
 UI使用HandyControl控件库 [开发文档地址](https://handyorg.github.io/handycontrol/)、[GitHub地址](https://github.com/HandyOrg/HandyControl)
 
-之前在知乎发布的版本部分代码是有授权限制的,花了点时间现移除了授权部分的代码,所以UI会和之前不同,功能上并无差别。
+之前在知乎发布的版本部分代码和UI是有授权限制的,花了点时间现移除了授权部分的代码和UI,所以UI会和之前不同,功能上并无差别。
 
-先声明当初是想着自己用的,注释什么的基本算没有吧
+先声明当初是想着自己用的,注释什么的基本算没有吧,如果要修改的可能需要花点时间看一下代码。
 
 ***
 ## 编译环境要求
@@ -21,6 +21,10 @@ UI使用HandyControl控件库 [开发文档地址](https://handyorg.github.io/handycontrol/
 3.VS安装.Net桌面开发
 
 4.Windows11/10
+
+## 核心部分
+Resources/PyFile/Run.py 该文件负责启动ChatRWKV服务
+ViewModels/MainViewModel.cs 基本所有的功能操作都在这
 
 ***
 ## 打包程序步骤
