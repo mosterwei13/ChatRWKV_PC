@@ -1,0 +1,370 @@
+﻿<Window x:Class="ChatRWKV_PC.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ChatRWKV_PC"
+        mc:Ignorable="d"
+        MinWidth="1380"
+        MinHeight="900"
+        xmlns:converter="clr-namespace:ChatRWKV_PC.Converters"
+        WindowStartupLocation="CenterScreen"
+        xmlns:hc="https://handyorg.github.io/handycontrol"
+        Icon="/Resources/Images/icon.png"
+        Title="ChatRWKV桌面版" Height="450" Width="800">
+    <Window.Resources>
+        <converter:NumberToVisibilityConverter x:Key="NumberToVisibilityConverter"/>
+        <Style TargetType="Label" BasedOn="{StaticResource BaseStyle}">
+            
+        </Style>
+        <Style TargetType="GroupBox" BasedOn="{StaticResource BaseStyle}" />
+    </Window.Resources>
+    <DockPanel Margin="10">
+        <StackPanel DockPanel.Dock="Bottom" HorizontalAlignment="Center">
+            <TextBlock HorizontalAlignment="Center">
+            © 2023 修计算机的网管
+            </TextBlock>
+            <TextBlock >
+            本软件仅限交流与学习，不收费，请勿被骗！
+            </TextBlock>
+        </StackPanel>
+
+
+        <GroupBox Header="配置区" FontSize="12" DockPanel.Dock="Left" Width="550">
+            <StackPanel >
+                <TextBox Width="Auto" 
+                         x:Name="ModelName"
+                         hc:InfoElement.TitlePlacement="Left"
+                         hc:InfoElement.Title="模型路径："
+                         hc:InfoElement.Placeholder="可拖入文件到本文本框自动处理"
+                         Style="{StaticResource TextBoxExtend}"
+                         AllowDrop="True" 
+                         Text="{Binding ModelName}"
+                         VerticalAlignment="Center" 
+                         Height="35" PreviewDrop="ModelName_PreviewDrop" PreviewDragOver="ModelName_PreviewDragOver"
+                         />
+                <Grid Margin="0,5,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <TextBox Grid.Column="0"
+                             Style="{StaticResource TextBoxExtend}"
+                             hc:InfoElement.TitlePlacement="Left"
+                             hc:InfoElement.Title="strategy"
+                             hc:InfoElement.Placeholder="启动策略"
+                             Height="35" VerticalAlignment="Center" Text="{Binding Strategy}" />
+                    <TextBox Grid.Column="1"
+                             Margin="5,0,0,0"
+                             hc:InfoElement.TitlePlacement="Left"
+                             Style="{StaticResource TextBoxExtend}"
+                             hc:InfoElement.Title="CHAT_LANG"
+                             Height="35" VerticalAlignment="Center" Text="{Binding CHAT_LANG}" />
+                    
+                </Grid>
+                
+                <Grid Margin="0,5,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <TextBox Grid.Column="0"
+                             Style="{StaticResource TextBoxExtend}"
+                             hc:InfoElement.TitlePlacement="Left"
+                             hc:InfoElement.Title="token_count"
+                             Height="35" VerticalAlignment="Center" Text="{Binding TokenCount}" />
+                    <TextBox Grid.Column="1"
+                             Style="{StaticResource TextBoxExtend}"
+                             hc:InfoElement.TitlePlacement="Left"
+                             hc:InfoElement.Title="temperature"
+                             hc:InfoElement.Placeholder=""
+                             Margin="5,0,0,0"
+                             Height="35" VerticalAlignment="Center" Text="{Binding Temperature}" />
+                    <TextBox Grid.Column="2"
+                             Style="{StaticResource TextBoxExtend}"
+                             hc:InfoElement.TitlePlacement="Left"
+                             hc:InfoElement.Title="top_p"
+                             hc:InfoElement.Placeholder=""
+                             Margin="5,0,0,0"
+                             Height="35" VerticalAlignment="Center" Text="{Binding TopP}" />
+                </Grid>
+
+                <Grid Margin="0,5,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <TextBox Grid.Column="0"
+                             Style="{StaticResource TextBoxExtend}"
+                             hc:InfoElement.TitlePlacement="Left"
+                             hc:InfoElement.Title="presencePenalty"
+                             hc:InfoElement.Placeholder=""
+                             Margin="5,0,0,0"
+                             Height="35" VerticalAlignment="Center" Text="{Binding PresencePenalty}" />
+                    <TextBox Grid.Column="2"
+                             Style="{StaticResource TextBoxExtend}"
+                             hc:InfoElement.TitlePlacement="Left"
+                             hc:InfoElement.Title="countPenalty"
+                             hc:InfoElement.Placeholder=""
+                             Margin="5,0,0,0"
+                             Height="35" VerticalAlignment="Center" Text="{Binding CountPenalty}" />
+                </Grid>
+                <Grid Margin="0,5,0,0" Height="35">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="110"/>
+                        <ColumnDefinition Width="85"/>
+                        <ColumnDefinition Width="120"/>
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <CheckBox Grid.Column="0" x:Name="IsAutoCmdCheckBox" Content="自动关闭命令行"  IsChecked="{Binding IsAutoCmd}" />
+                    <CheckBox Grid.Column="1"  Content="开启加速" IsChecked="{Binding IsSpeed}" />
+                    <ComboBox Grid.Column="2" ItemsSource="{Binding FontFamilys, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" SelectedIndex="0" x:Name="FontFamilysComboBox" SelectionChanged="FontFamilysComboBox_SelectionChanged" />
+                    <CheckBox Grid.Column="3" Margin="5,0,0,0" Content="显示RWKV进程(需保存重启)" IsChecked="{Binding ShowRWKV}" />
+                </Grid>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition MinWidth="150"/>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions >
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Label Content="依赖包信息:" Grid.Row="0"/>
+                    <StackPanel Grid.Row="1" Grid.Column="0">
+                        <Label Content="rwkv" />
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="当前版本:" />
+                            <Label Content="{Binding RwkvCurrentVersion}" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="最新版本:" />
+                            <Label Content="{Binding RwkvLastVersion}" />
+                        </StackPanel>
+                        <Button Width="120" Content="更新依赖" Height="30" Margin="5" Command="{Binding UpgradeBtnCommand}" CommandParameter="rwkv"/>
+                    </StackPanel>
+                    <StackPanel Grid.Row="1" Grid.Column="1">
+                        <Label Content="torch + cu117" />
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="当前版本:" />
+                            <TextBlock TextWrapping="Wrap" Text="{Binding TorchCurrentVersion}" VerticalAlignment="Center" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="最新版本:" />
+                            <TextBlock TextWrapping="Wrap" Text="{Binding TorchLastVersion}" VerticalAlignment="Center" />
+                        </StackPanel>
+                        <Button Width="120" Content="更新依赖" Height="30" Margin="5" Command="{Binding UpgradeBtnCommand}" CommandParameter="torch"/>
+                    </StackPanel>
+                    <StackPanel Grid.Row="1" Grid.Column="2">
+                        <Label Content="tokenizers" />
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="当前版本:" />
+                            <Label Content="{Binding TokenizersCurrentVersion}" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="最新版本:" />
+                            <Label Content="{Binding TokenizersLastVersion}" />
+                        </StackPanel>
+                        <Button Width="120" Content="更新依赖" Height="30" Margin="5" Command="{Binding UpgradeBtnCommand}" CommandParameter="tokenizers"/>
+                    </StackPanel>
+                    <StackPanel Grid.Row="1" Grid.Column="3">
+                        <Label Content="numpy" />
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="当前版本:" />
+                            <Label Content="{Binding NumpyCurrentVersion}" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="最新版本:" />
+                            <Label Content="{Binding NumpyLastVersion}" />
+                        </StackPanel>
+                        <Button Width="120" Content="更新依赖" Height="30" Margin="5" Command="{Binding UpgradeBtnCommand}" CommandParameter="numpy"/>
+                    </StackPanel>
+                    <Button Grid.Row="2" Grid.Column="0" Width="120" Command="{Binding SwitchSourceBtnCommand,Mode=OneWay}" CommandParameter="https://pypi.org/simple" Content="切换pip源(默认)" Height="32" Margin="5,0"/>
+                    <Button Grid.Row="2" Grid.Column="1" Width="120" Command="{Binding SwitchSourceBtnCommand,Mode=OneWay}" CommandParameter="https://pypi.tuna.tsinghua.edu.cn/simple" Content="切换pip源(清华)" Height="32" Margin="5,5,5,0"/>
+                    <Button Grid.Row="2" Grid.Column="2" Width="120" Command="{Binding SwitchSourceBtnCommand,Mode=OneWay}" CommandParameter="https://pypi.mirrors.ustc.edu.cn/simple/" Content="切换pip源(科技)" Height="32" Margin="5,5,5,0"/>
+                    <Button Grid.Row="2" Grid.Column="3" Width="120" Command="{Binding AllInstallBtnCommand,Mode=OneWay}" Content="一键安装依赖" Height="32" Margin="5,5,5,0" />
+                    <Button Grid.Row="3" Grid.Column="0" Width="120" Command="{Binding GitHubRWKDownloadCommand,Mode=OneWay}" CommandParameter="{Binding Mode=OneWay,RelativeSource={RelativeSource Mode=Self}}" Content="下载GitHub版" Height="32" Margin="5,0" />
+                    <Button Grid.Row="3" Grid.Column="1" Width="120" Command="{Binding GitHubRWKVUpdateCommand,Mode=OneWay}"  CommandParameter="{Binding Mode=OneWay,RelativeSource={RelativeSource Mode=Self}}" Content="更新GitHub版" Height="32" Margin="5,5,5,0"/>
+                    <Button Grid.Row="3" Grid.Column="2" Width="120" Command="{Binding EditBtnCommand,Mode=OneWay}" CommandParameter="{Binding Mode=OneWay,RelativeSource={RelativeSource Mode=Self}}" x:Name="EditBtn" Content="编辑Chat.py" Height="32" Margin="5,5,5,0" />
+                    <Button Grid.Row="3" Grid.Column="3" Width="120" Command="{Binding StartGitHubChatPyCommand,Mode=OneWay}" CommandParameter="{Binding Mode=OneWay,RelativeSource={RelativeSource Mode=Self}}" x:Name="StartChatBtn" Content="启动Chat.py" Height="32" Margin="5,5,5,0" />
+                </Grid>
+                <TextBlock TextWrapping="Wrap" xml:space="preserve" >
+参数说明：
+1.strategy 具体看：<Hyperlink  NavigateUri="https://zhuanlan.zhihu.com/p/609154637" RequestNavigate="Hyperlink_RequestNavigate">@PENG Bo 开源1.5/3/7B中文小说模型：显存3G就能跑7B模型，几行代码即可调用</Hyperlink><TextBlock Padding="5,5,0,0"><Button Content="查看策略" Command="{Binding ShowStrategyCommand}" /></TextBlock>
+2.token_count 每次生成的长度
+3.temperature 默认1，高则变化丰富，低则保守求稳 
+4.top_p 默认0.8，高则标新立异，低则循规蹈矩
+5.presencePenalty 默认0.1，避免写过的类似字 
+6.countPenalty 默认0.1，额外避免写过多次的类似字
+网页版：<Hyperlink NavigateUri="https://modelscope.cn/studios/BlinkDL/RWKV-CHN/summary" RequestNavigate="Hyperlink_RequestNavigate">ModelScope 魔搭</Hyperlink>
+模型下载地址：<Hyperlink NavigateUri="https://huggingface.co/BlinkDL" RequestNavigate="Hyperlink_RequestNavigate">https://huggingface.co/BlinkDL</Hyperlink>
+Python版懒人包：<Hyperlink NavigateUri="https://zhuanlan.zhihu.com/p/612879065" RequestNavigate="Hyperlink_RequestNavigate">@漂浮的金链子：ChatRWKV懒人版python包</Hyperlink>
+调参攻略：<Hyperlink NavigateUri="https://zhuanlan.zhihu.com/p/616353805" RequestNavigate="Hyperlink_RequestNavigate">@光曙：《“光曙”编写的RWKV写小说炼丹心得》2023-03-23版本</Hyperlink>
+微调文本教程：<Hyperlink NavigateUri="https://www.bilibili.com/read/cv22445881" RequestNavigate="Hyperlink_RequestNavigate">M40显卡通过lora微调国产开源模型RWKV</Hyperlink>
+源码的需要自己修改chat.py文件,本软件可以代为启动，仅支持v2目录下chat.py
+本软件知乎文章地址：<Hyperlink NavigateUri="https://zhuanlan.zhihu.com/p/615655028" RequestNavigate="Hyperlink_RequestNavigate">@修计算机的网管 ChatRWKV桌面版懒人包</Hyperlink>
+本软件微云下载地址：<Hyperlink NavigateUri="https://share.weiyun.com/mlNwiMR7" RequestNavigate="Hyperlink_RequestNavigate">ChatRWKV桌面版懒人包</Hyperlink><TextBlock Padding="0,3,0,0"> <TextBox IsReadOnly="True" VerticalContentAlignment="Bottom" Style="{StaticResource BaseStyle}" BorderThickness="0" >密码: zvw7md</TextBox> </TextBlock>
+                </TextBlock>
+                <Grid Margin="0,5,0,0">
+                    <TextBlock Visibility="{Binding RunStatus,Converter={StaticResource NumberToVisibilityConverter},ConverterParameter=-1}" Text="启动失败" Foreground="Red" HorizontalAlignment="Center" />
+                    <TextBlock Visibility="{Binding RunStatus,Converter={StaticResource NumberToVisibilityConverter},ConverterParameter=0}" Text="未运行" Foreground="#FF0FBBBB" HorizontalAlignment="Center"  />
+                    <TextBlock Visibility="{Binding RunStatus,Converter={StaticResource NumberToVisibilityConverter},ConverterParameter=1}" Text="运行中" Foreground="Green" HorizontalAlignment="Center" />
+                    <TextBlock Visibility="{Binding RunStatus,Converter={StaticResource NumberToVisibilityConverter},ConverterParameter=2}" Text="启动中" Foreground="Orange" HorizontalAlignment="Center" />
+                </Grid>
+                <Grid Margin="0,5" Height="70">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="120"/>
+                        <ColumnDefinition Width="80"/>
+                        <ColumnDefinition Width="80"/>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                        <Button Content="运行ChatRWKV" Visibility="{Binding RunStatus,Converter={StaticResource NumberToVisibilityConverter},ConverterParameter=0}" Command="{Binding StartRWKVCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}" />
+                        <Button Content="运行ChatRWKV" Visibility="{Binding RunStatus,Converter={StaticResource NumberToVisibilityConverter},ConverterParameter=-1}" Command="{Binding StartRWKVCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}" />
+                        <Button Content="运行ChatRWKV" Visibility="{Binding RunStatus,Converter={StaticResource NumberToVisibilityConverter},ConverterParameter=2}" Command="{Binding StartRWKVCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}" />
+                        <Button Content="停止ChatRWKV" Visibility="{Binding RunStatus,Converter={StaticResource NumberToVisibilityConverter},ConverterParameter=1}"  Command="{Binding StopBtnCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}" />
+                    </Grid>
+                    <Button Content="转换模型" Grid.Column="1" Command="{Binding ConverterModelCommand}"/>
+                    <Button Grid.Column="2" Content="保存设置" Command="{Binding SaveSettingsBtnCommand}"/>
+                </Grid>
+            </StackPanel>
+        </GroupBox>
+
+        <Grid DockPanel.Dock="Right" Margin="10,0,0,0">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition Height="200"/>
+            </Grid.RowDefinitions>
+            <GroupBox Header="输出区" FontSize="14" Grid.Row="0">
+                <ListBox Name="ListBoxChat"
+                         ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                         Background="Transparent" 
+                         BorderThickness="0" 
+                         Style="{StaticResource StackPanelVerticalListBox}" 
+                         ItemsSource="{Binding ChatInfoModels,UpdateSourceTrigger=PropertyChanged}" 
+                         ScrollViewer.ScrollChanged="ListBoxChat_ScrollChanged"
+                         ScrollViewer.VerticalScrollBarVisibility="Visible" >
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <hc:ChatBubble Role="{Binding Role}"
+                                           Type="{Binding Type}"
+                                           Content="{Binding Message}" 
+                                           Background="{Binding Background}" 
+                                           Foreground="{Binding FontColor}" 
+                                           MaxWidth="{Binding MaxWidth}">
+                                <hc:ChatBubble.Style>
+                                    <Style TargetType="{x:Type hc:ChatBubble}" BasedOn="{StaticResource ChatBubbleBaseStyle}">
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="{x:Type hc:ChatBubble}">
+                                                    <Grid>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Name="ColWidth0"/>
+                                                            <ColumnDefinition Width="42" Name="ColWidth1"/>
+                                                        </Grid.ColumnDefinitions>
+                                                        <Grid.RowDefinitions>
+                                                            <RowDefinition />
+                                                            <RowDefinition />
+                                                        </Grid.RowDefinitions>
+                                                        <TextBlock 
+                                                            Grid.Row="1"
+                                                            Grid.Column="0"
+                                                            Foreground="#666666" 
+                                                            Margin="0,0,10,0"
+                                                            Text="{Binding Name}" 
+                                                            Name="SendName" 
+                                                            HorizontalAlignment="Right" />
+                                                        <Path Name="Tail" 
+                                                              Grid.Row="1"
+                                                              Grid.Column="0"
+                                                              Margin="0,24,0,0"
+                                                              RenderTransformOrigin="0.5,0.5"
+                                                              Stretch="Fill"
+                                                              Data="M0,0 L15,7.5 0,15" 
+                                                              HorizontalAlignment="Right" 
+                                                              VerticalAlignment="Top"  
+                                                              Fill="{TemplateBinding Background}"   
+                                                              Width="15"
+                                                              Height="15" />
+                                                        <Border Grid.Row="1" Grid.Column="0" Name="Body" Background="{TemplateBinding Background}" CornerRadius="8" Margin="0,20,8,0">
+                                                            <TextBlock TextWrapping="Wrap" VerticalAlignment="Center" Margin="{TemplateBinding Padding}">
+                                                                <TextBox  Foreground="{Binding FontColor}" FontSize="{TemplateBinding FontSize}" Text="{TemplateBinding Content}" TextWrapping="Wrap" IsReadOnly="True" Style="{StaticResource BaseStyle}" BorderThickness="0" Background="Transparent"/>
+                                                            </TextBlock>
+                                                        </Border>
+                                                        <Border Grid.Row="1" Grid.Column="1" 
+                                                                Name="HeadImage"
+                                                                VerticalAlignment="Top" 
+                                                                Background="{Binding ImagesBackground}" 
+                                                                Width="36" Height="36" 
+                                                                HorizontalAlignment="Right"  >
+                                                            <Image  Source="{Binding Icon}" />
+                                                        </Border>
+                                                    </Grid>
+                                                    <ControlTemplate.Triggers>
+                                                        <Trigger Property="Role" Value="Receiver">
+                                                            <Setter TargetName="ColWidth0" Property="Width"  Value="42"/>
+                                                            <Setter TargetName="ColWidth1" Property="Width"  Value="*"/>
+                                                            <Setter TargetName="SendName" Property="HorizontalAlignment" Value="Left" />
+                                                            <Setter TargetName="SendName" Property="Grid.Column" Value="1" />
+                                                            <Setter TargetName="SendName" Property="Margin" Value="10,0,0,0" />
+                                                            <Setter TargetName="HeadImage" Property="Grid.Column" Value="0" />
+                                                            <Setter TargetName="HeadImage" Property="HorizontalAlignment" Value="Left" />
+                                                            <Setter TargetName="Tail" Property="HorizontalAlignment" Value="Left"/>
+                                                            <Setter TargetName="Tail" Property="Grid.Column" Value="1"/>
+                                                            <Setter TargetName="Tail" Property="Margin" Value="0,24,0,0"/>
+                                                            <Setter TargetName="Tail" Property="RenderTransform">
+                                                                <Setter.Value>
+                                                                    <TransformGroup>
+                                                                        <ScaleTransform ScaleY="1" ScaleX="-1"/>
+                                                                    </TransformGroup>
+                                                                </Setter.Value>
+                                                            </Setter>
+                                                            <Setter TargetName="Body" Property="Margin" Value="8,20,0,0"/>
+                                                            <Setter TargetName="Body" Property="Grid.Column" Value="1"/>
+                                                        </Trigger>
+                                                    </ControlTemplate.Triggers>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </hc:ChatBubble.Style>
+                            </hc:ChatBubble>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </GroupBox>
+            <GroupBox Header="输入区" FontSize="14" Grid.Row="1">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="80"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBox Text="{Binding InputMsg,UpdateSourceTrigger=PropertyChanged}" FontSize="14" TextWrapping="Wrap" AcceptsReturn="True" VerticalContentAlignment="Top" >
+                        <TextBox.InputBindings>
+                            <KeyBinding Key="F5" Command="{Binding SendMessageCommand}" CommandParameter="{Binding ElementName=SendMessage_Button}" />
+                        </TextBox.InputBindings>
+                    </TextBox>
+                    <Grid Grid.Column="1" Margin="8,0,0,0">
+                        <Grid.RowDefinitions >
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Button Content="发送(F5)" Grid.Row="0" Name="SendMessage_Button"  Command="{Binding SendMessageCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}}"/>
+                        <Button Content="命令说明" Grid.Row="1"  Command="{Binding CommandDesc}" />
+                        <Button Content="保存记录" Grid.Row="2" Command="{Binding SaveRecordCommand}"/>
+                    </Grid>
+                </Grid>
+            </GroupBox>
+        </Grid>
+    </DockPanel>
+</Window>
