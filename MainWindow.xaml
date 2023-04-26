@@ -207,6 +207,7 @@ Python版懒人包：<Hyperlink NavigateUri="https://zhuanlan.zhihu.com/p/612879
 调参攻略：<Hyperlink NavigateUri="https://zhuanlan.zhihu.com/p/616353805" RequestNavigate="Hyperlink_RequestNavigate">@光曙：《“光曙”编写的RWKV写小说炼丹心得》2023-03-23版本</Hyperlink>
 微调文本教程：<Hyperlink NavigateUri="https://www.bilibili.com/read/cv22445881" RequestNavigate="Hyperlink_RequestNavigate">M40显卡通过lora微调国产开源模型RWKV</Hyperlink>
 源码的需要自己修改chat.py文件,本软件可以代为启动，仅支持v2目录下chat.py
+GitHub地址：<Hyperlink NavigateUri="https://github.com/ZG1711/ChatRWKV_PC" RequestNavigate="Hyperlink_RequestNavigate">ChatRWKV</Hyperlink>
 本软件知乎文章地址：<Hyperlink NavigateUri="https://zhuanlan.zhihu.com/p/615655028" RequestNavigate="Hyperlink_RequestNavigate">@修计算机的网管 ChatRWKV桌面版懒人包</Hyperlink>
 本软件微云下载地址：<Hyperlink NavigateUri="https://share.weiyun.com/mlNwiMR7" RequestNavigate="Hyperlink_RequestNavigate">ChatRWKV桌面版懒人包</Hyperlink><TextBlock Padding="0,3,0,0"> <TextBox IsReadOnly="True" VerticalContentAlignment="Bottom" Style="{StaticResource BaseStyle}" BorderThickness="0" >密码: zvw7md</TextBox> </TextBlock>
                 </TextBlock>
@@ -216,7 +217,7 @@ Python版懒人包：<Hyperlink NavigateUri="https://zhuanlan.zhihu.com/p/612879
                     <TextBlock Visibility="{Binding RunStatus,Converter={StaticResource NumberToVisibilityConverter},ConverterParameter=1}" Text="运行中" Foreground="Green" HorizontalAlignment="Center" />
                     <TextBlock Visibility="{Binding RunStatus,Converter={StaticResource NumberToVisibilityConverter},ConverterParameter=2}" Text="启动中" Foreground="Orange" HorizontalAlignment="Center" />
                 </Grid>
-                <Grid Margin="0,5" Height="70">
+                <Grid Margin="0,5">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="120"/>
                         <ColumnDefinition Width="80"/>
